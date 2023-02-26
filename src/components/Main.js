@@ -1,5 +1,6 @@
 import React from 'react'
-import { useState } from 'react'
+import './main.css';
+import { useState,useEffect } from 'react'
 import TodoItem from './TodoItem';
 
 const Main = () => {
@@ -12,6 +13,7 @@ const Main = () => {
             id=todos[0].id+1;
         }
         const newTodo={
+            key:id,
             text:text,
             id:id,
             completed:false
@@ -25,18 +27,18 @@ const Main = () => {
     }
 
     const handleCompleted = id=>{
-        let newTodo= todos.map((e)=>{
+        let updatedTodo= todos.map((e)=>{
             if(e.id===id){
-                e.completed=true;
+                e.completed=!e.completed;
             }
             return e;
         })
-        setTodos(newTodo);
+        setTodos(updatedTodo);
     }
 
     const handleDelete=id=>{
-        let newTodo= todos.filter(e=>e.id!=id)
-        setTodos(newTodo)
+        let DeletedTodo= todos.filter(e=>e.id!==id)
+        setTodos(DeletedTodo);
     }
     
     const elements= todos.map((eve)=>(
@@ -49,15 +51,18 @@ const Main = () => {
             handleCompleted={handleCompleted}
         />
     ));
-
+    
+    useEffect(() => {
+      document.title='Todo List by Samyak';
+    }, []);
     
     
 
   return (
-    <div className='container'>
-        <form onSubmit={handleChange}>
+    <div>
+        <form onSubmit={handleChange} className='mt-5'>
             <input type={'text'} onChange={e=>setTextTodo(e.target.value)}/>
-            <button>Add Todo</button>
+            <button className='buttonTodo'>Add Todo</button>
         </form>
         {elements}
     </div>
