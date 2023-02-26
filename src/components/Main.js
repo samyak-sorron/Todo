@@ -60,7 +60,7 @@ const Main = () => {
 
   return (
     <div>
-        <form onSubmit={handleChange} className='mt-5'>
+        <form onSubmit={handleChange} className='mt-5 mb-5'>
             <input type={'text'} onChange={e=>setTextTodo(e.target.value)}/>
             <button className='buttonTodo'>Add Todo</button>
         </form>
